@@ -5,6 +5,8 @@ describe AWSUploader do
   before do
     allow(ENV).to receive(:fetch).with("AWS_ACCESS_KEY_ID", nil).and_return("aws_access_key_id")
     allow(ENV).to receive(:fetch).with("AWS_SECRET_ACCESS_KEY", nil).and_return("aws_secret_access_key")
+    stub_const("CatpurrOne::Config::AWS_S3_BUCKET_NAME", "s3_bucket_name")
+    stub_const("CatpurrOne::Config::AWS_S3_UNPROCESSED_IMAGES_DIRECTORY", "directory_prefix")
 
     @s3_client = double("s3 client")
     allow(Aws::S3::Client).to receive(:new).and_return(@s3_client)
@@ -37,9 +39,12 @@ describe AWSUploader do
     end
 
     it "uploads the file to the designated bucket" do
+      file_contents = double("file contents")
+      expect(File).to receive(:open).with(file_fixture("cat.jpg")).and_return(file_contents)
       expect(@s3_client).to receive(:put_object).with(
-        body: File.expand_path("./spec/fixtures/images/cat.jpg"),
-        bucket: "test_bucket",
+        body: file_contents,
+        bucket: "s3_bucket_name",
+        key: "directory_prefixcat.jpg"
       )
 
       s3_uploader = AWSUploader.new
