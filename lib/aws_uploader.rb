@@ -1,5 +1,9 @@
 require "aws-sdk-s3"
+<<<<<<< HEAD
 require "./config/config.rb"
+=======
+require "./config/config"
+>>>>>>> 58659a2 (Uploading files to AWS S3 bucket.)
 
 class AWSUploader
 attr_reader :s3_client
@@ -17,10 +21,11 @@ attr_reader :s3_client
 
   def upload(file_path:)
     file_name = File.basename(file_path)
-    raise(ArgumentError.new("The file #{file_path} does not exist")) unless File.exist?(file_path)
+
+    raise ArgumentError, "The file #{file_path} does not exist" unless File.exist?(file_path)
 
     @s3_client.put_object(
-      body: File.open(file_path), 
+      body: File.open(file_path),
       bucket: CatpurrOne::Config::AWS_S3_BUCKET_NAME,
       key: CatpurrOne::Config::AWS_S3_UNPROCESSED_IMAGES_DIRECTORY + file_name,
     )
