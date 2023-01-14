@@ -1,9 +1,5 @@
 require "aws-sdk-s3"
-<<<<<<< HEAD
-require "./config/config.rb"
-=======
 require "./config/config"
->>>>>>> 58659a2 (Uploading files to AWS S3 bucket.)
 
 class AWSUploader
 attr_reader :s3_client
