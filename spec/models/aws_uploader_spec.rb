@@ -1,6 +1,7 @@
 require "aws_uploader"
 require "spec_helper"
 
+# Change to force a new sha
 describe AWSUploader do
   before do
     allow(ENV).to receive(:fetch).with("AWS_ACCESS_KEY_ID", nil).and_return("aws_access_key_id")
