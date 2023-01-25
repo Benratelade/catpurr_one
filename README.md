@@ -3,8 +3,8 @@ This project is just an opportunity to have some fun with my Raspberry Pi 3B+ an
 
 ## Hardware
 * Raspberry Pi 3B+
-* PIR infrared motion sensor
-* Raspberry Pi Camera Module (TBC)
+* PIR infrared motion sensor - Duinotech XC-4444
+* KEYESTUDIO 1080p with OV5647 sensor camera module (version 1.3)
 
 ## Infrastructure
 * Once photos have been catpured by Pi's camera, they are uploaded in an S3 bucket. 
