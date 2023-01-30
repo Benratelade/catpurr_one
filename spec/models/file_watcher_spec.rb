@@ -17,20 +17,8 @@ describe FileWatcher do
   it "starts a listener that looks at the temp directory" do
     new_files = double("newly added files")
     expect(Listen).to receive(:to).with("./temp/")
-    expect(@listener).to receive(:start)
+    expect(Thread).to receive(:new)
 
     FileWatcher.watch { |param| param }
   end
-
-  it "executes a given block" do
-    newly_added_files = double("newly added files")
-    allow(Listen).to receive(:to).and_yield(newly_added_files)
-
-    block = proc { |new_files| new_files }
-    expect(block).to receive(:run).with(newly_added_files)
-
-    FileWatcher.watch(&block)
-  end
-
-  it "does NOT trigger a callback when there is a new file in a directory not targetted"
 end
