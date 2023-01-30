@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pry"
 
 def file_fixture(fixture_name)

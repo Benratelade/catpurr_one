@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "aws_uploader"
 require "spec_helper"
 
@@ -8,6 +10,7 @@ describe AWSUploader do
     allow(ENV).to receive(:fetch).with("AWS_SECRET_ACCESS_KEY", nil).and_return("aws_secret_access_key")
     stub_const("CatpurrOne::Config::AWS_S3_BUCKET_NAME", "s3_bucket_name")
     stub_const("CatpurrOne::Config::AWS_S3_UNPROCESSED_IMAGES_DIRECTORY", "directory_prefix")
+    stub_const("CatpurrOne::Config::AWS_REGION", "aws_region")
 
     @s3_client = double("s3 client")
     allow(Aws::S3::Client).to receive(:new).and_return(@s3_client)
@@ -18,13 +21,13 @@ describe AWSUploader do
     it "instantiates a connection to our s3 bucket" do
       aws_credentials = double("aws_credentials")
       expect(Aws::Credentials).to receive(:new).with(
-       "aws_access_key_id",
-       "aws_secret_access_key",
+        "aws_access_key_id",
+        "aws_secret_access_key",
       ).and_return(aws_credentials)
 
       expect(Aws::S3::Client).to receive(:new).with(
-        region: "ap-southeast-2",
-        credentials: aws_credentials, 
+        region: "aws_region",
+        credentials: aws_credentials,
       )
 
       AWSUploader.new
@@ -45,7 +48,7 @@ describe AWSUploader do
       expect(@s3_client).to receive(:put_object).with(
         body: file_contents,
         bucket: "s3_bucket_name",
-        key: "directory_prefixcat.jpg"
+        key: "directory_prefixcat.jpg",
       )
 
       s3_uploader = AWSUploader.new

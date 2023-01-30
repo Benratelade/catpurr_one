@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "aws-sdk-s3"
 require "./config/config"
 
 class AWSUploader
-attr_reader :s3_client
+  attr_reader :s3_client
 
   def initialize
     credentials = Aws::Credentials.new(
@@ -10,7 +12,7 @@ attr_reader :s3_client
       ENV.fetch("AWS_SECRET_ACCESS_KEY", nil),
     )
     @s3_client = Aws::S3::Client.new(
-      region: "ap-southeast-2",
+      region: CatpurrOne::Config::AWS_REGION,
       credentials: credentials,
     )
   end
