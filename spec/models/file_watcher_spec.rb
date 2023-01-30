@@ -14,7 +14,7 @@ describe FileWatcher do
     end.to raise_error(ArgumentError, "A block must be provided")
   end
 
-  it "starts a listener that looks at the temp directory" do
+  it "starts a listener that looks at the temp directory and kicks off a new thread" do
     new_files = double("newly added files")
     expect(Listen).to receive(:to).with("./temp/")
     expect(Thread).to receive(:new)
