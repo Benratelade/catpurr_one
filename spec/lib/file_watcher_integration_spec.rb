@@ -18,6 +18,23 @@ describe FileWatcher do
   after do
     temp_files = Dir["temp/*"]
     FileUtils.rm_r(temp_files, secure: true)
+
+    @s3_client.delete_objects(
+      bucket: CatpurrOne::Config::AWS_S3_BUCKET_NAME,
+      delete: {
+        objects: [
+          {
+            key: "unprocessed/cat.jpg",
+          },
+          {
+            key: "unprocessed/cats.jpg",
+          },
+          {
+            key: "unprocessed/dog.jpg",
+          },
+        ],
+      },
+    )
   end
 
   it "uploads each file that has been created in the temp folder" do

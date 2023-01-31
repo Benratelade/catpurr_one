@@ -55,4 +55,27 @@ describe AWSUploader do
       s3_uploader.upload(file_path: file_fixture("cat.jpg"))
     end
   end
+
+  describe "#delete" do
+    it "sends a request to delete all files provided" do
+      objects = [
+        {
+          key: "object_1",
+        },
+        {
+          key: "object_2",
+        }
+      ]
+
+      expect(@s3_client).to receive(:delete_objects).with(
+        bucket: "s3_bucket_name",
+        delete: {
+          objects: objects
+        }
+      )
+      
+      s3_uploader = AWSUploader.new
+      s3_uploader.delete(objects)
+    end
+  end
 end

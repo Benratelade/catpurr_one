@@ -28,4 +28,13 @@ class AWSUploader
       key: CatpurrOne::Config::AWS_S3_UNPROCESSED_IMAGES_DIRECTORY + file_name,
     )
   end
+
+  def delete(objects)
+    @s3_client.delete_objects(
+      bucket: CatpurrOne::Config::AWS_S3_BUCKET_NAME,
+      delete: {
+        objects: objects, 
+      }
+    )
+  end
 end
