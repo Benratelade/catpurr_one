@@ -11,6 +11,8 @@ gem "pi_piper"
 # To detect when a new photo has been taken
 gem "listen"
 
+gem "sidekiq"
+
 group :development, :test do
   gem "pry"
   gem "rspec"

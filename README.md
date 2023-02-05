@@ -20,3 +20,7 @@ This project is just an opportunity to have some fun with my Raspberry Pi 3B+ an
 * Use ASDF to manage dependencies
 * Run tests with rspec
 * Continuous Integration is done via Circle CI (TBD)
+
+# Redis
+To support queues with Sidekiq, we rely on Redis running on port 6500. `--daemonize yes` starts Redis in the background. 
+`redis-server --port 6500 --daemonize yes`
