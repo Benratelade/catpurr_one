@@ -9,7 +9,7 @@ describe FileWatcher do
     FileUtils.rm_r(temp_files, secure: true)
   end
 
-  it "uploads each file that has been created in the temp folder" do
+  it "creates a job to upload all files file that have been created in the temp folder" do
     FileWatcher.watch
 
     # Need to sleep before moving the files to make sure the listener
