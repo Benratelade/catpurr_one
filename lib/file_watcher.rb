@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
+require "catpurr_one"
 require "listen"
+require "workers/files_upload_worker"
 require "aws_uploader"
 
 module FileWatcher
   def self.watch
-    aws_uploader = AWSUploader.new
-
     listener = Listen.to("./temp/") do |_modified, added, _removed|
-      added.each do |new_file|
-        # Probably a better way of doing this would be to add these to a queue for processing.
-        # That would be MUCH easier to test (no need to actually connect to aws in the test, for one thing)
-        aws_uploader.upload(file_path: new_file)
-      end
+      Workers::FilesUploadWorker.perform_async("files" => added) if added.any?
     end
 
     Thread.new { listener.start }

@@ -24,3 +24,9 @@ This project is just an opportunity to have some fun with my Raspberry Pi 3B+ an
 # Redis
 To support queues with Sidekiq, we rely on Redis running on port 6500. `--daemonize yes` starts Redis in the background. 
 `redis-server --port 6500 --daemonize yes`
+
+# Local dev
+you will need to load variables: 
+`. bin/load_env`
+
+Some secrets are necessary too. You will need to run `. bin/load_secrets`, which prompts for a passphrase and decrypts the secrets via Ansible. 

@@ -1,4 +1,4 @@
-Dir["#{__dir__}/initializers/*.rb"].each {|file| require file }
+Dir["#{__dir__}/initializers/*.rb"].each { |file| require file }
 
 module CatpurrOne
   module Config

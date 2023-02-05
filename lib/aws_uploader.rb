@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# require "catpurr_one"
 require "aws-sdk-s3"
 require "./config/config"
 

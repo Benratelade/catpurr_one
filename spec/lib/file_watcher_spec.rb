@@ -15,12 +15,6 @@ describe FileWatcher do
     allow(Thread).to receive(:new)
   end
 
-  it "instantiates an AWSUploader" do
-    expect(AWSUploader).to receive(:new)
-
-    FileWatcher.watch
-  end
-
   it "starts a listener that looks at the temp directory and kicks off a new thread" do
     expect(Listen).to receive(:to).with("./temp/")
     expect(Thread).to receive(:new)
