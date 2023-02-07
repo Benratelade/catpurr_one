@@ -1,29 +1,26 @@
 # frozen_string_literal: true
 
-# require "catpurr_one"
-require "pi_piper"
-include PiPiper
+require "catpurr_one"
+# require "pi_piper"
+# include PiPiper
 
 class MotionSensorStateWatcher
+  attr_reader :destination_folder
+
   def initialize
-    # @destination_folder = 
+    @destination_folder = "#{CatpurrOne.root_directory}/temp/"
+  end
+
+  def start
+    after pin: 14, goes: :high, direction: :in do |_pin|
+      puts "IR sensor triggered! Taking a snap..."
+
+      time = Time.now.to_i
+      result = `libcamera-still -n -o #{@destination_folder}/#{time}.jpg --hdr=0`
+
+      puts "completed taking photo!"
+    end
+
+    PiPiper.wait
   end
 end
-
-last_picture_time = nil
-after pin: 14, goes: :high, direction: :in do |pin|
-  # pin.read
-  # puts "IR sensor triggered! Taking a snap..."
-  # puts "Pin 14 value: #{pin.value}. Old value: #{pin.last_value}"
-  # time = Time.now.to_i
-  current_path = __dir__
-  result = `libcamera-still -n -o #{current_path}/../temp/#{time}.jpg --hdr=0`
-  # puts result
-  # puts "completed taking photo!"
-  # puts "Last picture was taken: #{time - last_picture_time}s ago" if last_picture_time
-  # last_picture_time = time
-  # pin.read
-  # puts "Pin value: #{pin.value}"
-end
-
-PiPiper.wait
