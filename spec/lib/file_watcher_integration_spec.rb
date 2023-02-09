@@ -16,7 +16,7 @@ describe FileWatcher do
     # has started in its new thread
     sleep 1
     test_files = Dir["spec/fixtures/images/*"]
-    FileUtils.cp(test_files, "/Users/benratelade/personal_projects/catpurr_one/temp")
+    FileUtils.cp(test_files, "#{CatpurrOne.root_directory}/temp")
 
     # It seems necessary to wait in order for the listener to
     # pick up the changes made to the directory.

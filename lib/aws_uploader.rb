@@ -34,8 +34,8 @@ class AWSUploader
     @s3_client.delete_objects(
       bucket: CatpurrOne::Config::AWS_S3_BUCKET_NAME,
       delete: {
-        objects: objects, 
-      }
+        objects: objects,
+      },
     )
   end
 end

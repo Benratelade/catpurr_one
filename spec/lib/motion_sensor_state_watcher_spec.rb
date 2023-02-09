@@ -6,6 +6,7 @@ require "spec_helper"
 describe MotionSensorStateWatcher do
   before do
     allow(CatpurrOne).to receive(:root_directory).and_return("root-directory")
+    allow(PiPiper).to receive(:wait)
   end
   describe "#intialize" do
     it "sets the destination folder for images" do
@@ -17,6 +18,7 @@ describe MotionSensorStateWatcher do
   describe "#start" do
     it "watches a pin and waits" do
       state_watcher = MotionSensorStateWatcher.new
+      expect(PiPiper).to receive(:wait)
       expect(state_watcher).to receive(:after).with(pin: 14, goes: :high, direction: :in)
 
       state_watcher.start

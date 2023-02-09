@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "catpurr_one"
-# require "pi_piper"
-# include PiPiper
+require "pi_piper"
+include PiPiper
 
 class MotionSensorStateWatcher
   attr_reader :destination_folder

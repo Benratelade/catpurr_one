@@ -64,16 +64,16 @@ describe AWSUploader do
         },
         {
           key: "object_2",
-        }
+        },
       ]
 
       expect(@s3_client).to receive(:delete_objects).with(
         bucket: "s3_bucket_name",
         delete: {
-          objects: objects
-        }
+          objects: objects,
+        },
       )
-      
+
       s3_uploader = AWSUploader.new
       s3_uploader.delete(objects)
     end

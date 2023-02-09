@@ -8,5 +8,5 @@ def file_fixture(fixture_name)
 end
 
 def temp_directory
-  CatpurrOne.root_directory + "/temp/"
+  "#{CatpurrOne.root_directory}/temp/"
 end

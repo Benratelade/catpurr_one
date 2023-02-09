@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "catpurr_one"
 require "sidekiq"
 require "aws_uploader"

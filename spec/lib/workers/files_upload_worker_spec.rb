@@ -16,7 +16,7 @@ describe Workers::FilesUploadWorker do
   end
 
   it "uses AWS S3 to upload the files" do
-    files = ["file-1", "file-2"]
+    files = %w[file-1 file-2]
     expect(@aws_uploader).to receive(:upload).with("file-1")
     expect(@aws_uploader).to receive(:upload).with("file-2")
 
