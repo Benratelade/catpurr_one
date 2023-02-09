@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "catpurr_one"
+require_relative "../catpurr_one"
+require_relative "../aws_uploader"
 require "sidekiq"
-require "aws_uploader"
 
 module Workers
   class FilesUploadWorker
