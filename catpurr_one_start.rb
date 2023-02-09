@@ -1,4 +1,4 @@
-require "catpurr_one"
+require_relative "./lib/catpurr_one"
 
 FileWatcher.watch
 

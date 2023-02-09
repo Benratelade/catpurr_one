@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "catpurr_one"
+require_relative "./catpurr_one"
 require "listen"
-require "workers/files_upload_worker"
-require "aws_uploader"
+require_relative "./workers/files_upload_worker"
+require_relative "./aws_uploader"
 
 module FileWatcher
   def self.watch

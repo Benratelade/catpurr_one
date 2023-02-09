@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# require "catpurr_one"
+require "catpurr_one"
 require "aws-sdk-s3"
-require "./config/config"
+require_relative "../config/config"
 
 class AWSUploader
   attr_reader :s3_client

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "catpurr_one"
+require_relative "./catpurr_one"
 require "pi_piper"
 include PiPiper
 
