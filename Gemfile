@@ -12,6 +12,7 @@ gem "pi_piper"
 gem "listen"
 
 gem "sidekiq"
+gem "rackup"
 
 group :development, :test do
   gem "pry"
