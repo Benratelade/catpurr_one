@@ -43,6 +43,8 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     rack (3.0.4.1)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
     rackup (2.1.0)
       rack (>= 3)
       webrick (~> 1.8)
@@ -99,6 +101,7 @@ DEPENDENCIES
   listen
   pi_piper
   pry
+  rack-session
   rackup
   rspec
   rubocop
