@@ -12,7 +12,7 @@ describe Workers::FilesUploadWorker do
   end
 
   it "does nothing if files are nil" do
-    expect(@worker.perform(files: nil)).to eq(nil)
+    expect(@worker.perform(nil)).to eq(nil)
   end
 
   it "uses AWS S3 to upload the files" do
@@ -20,6 +20,6 @@ describe Workers::FilesUploadWorker do
     expect(@aws_uploader).to receive(:upload).with("file-1")
     expect(@aws_uploader).to receive(:upload).with("file-2")
 
-    @worker.perform(files: files)
+    @worker.perform(files)
   end
 end

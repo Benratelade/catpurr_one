@@ -8,7 +8,7 @@ module Workers
   class FilesUploadWorker
     include Sidekiq::Job
 
-    def perform(files: [])
+    def perform(files = [])
       return if files.nil?
 
       aws_uploader = AWSUploader.new
