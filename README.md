@@ -25,6 +25,10 @@ This project is just an opportunity to have some fun with my Raspberry Pi 3B+ an
 To support queues with Sidekiq, we rely on Redis running on port 6500. `--daemonize yes` starts Redis in the background. 
 `redis-server --port 6500 --daemonize yes`
 
+# Sidekiq
+In order to view the status of jobs (failed, retrying, queued etc.) you can start the Sidekiq web UI: 
+`bundle exec rackup lib/sidekiq_web.ru`
+
 # Local dev
 you will need to load variables: 
 `. bin/load_env`
