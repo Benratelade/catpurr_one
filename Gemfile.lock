@@ -101,6 +101,7 @@ DEPENDENCIES
   listen
   pi_piper
   pry
+  rack
   rack-session
   rackup
   rspec

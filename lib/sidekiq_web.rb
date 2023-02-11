@@ -2,7 +2,7 @@
 # Run with "bundle exec rackup simple.ru"
 
 require "sidekiq/web"
-require "rack/session"
+require "puma"
 
 # A Web process always runs as client, no need to configure server
 Sidekiq.configure_client do |config|
