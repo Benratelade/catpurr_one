@@ -8,8 +8,6 @@ Sidekiq.configure_client do |config|
   config.redis = {url: ENV.fetch("CATPURR_ONE_APP_SIDEKIQ_REDIS_URL", nil), size: 1}
 end
 
-Sidekiq::Client.push("class" => "HardJob", "args" => [])
-
 # In a multi-process deployment, all Web UI instances should share
 # this secret key so they can all decode the encrypted browser cookies
 # and provide a working session.
