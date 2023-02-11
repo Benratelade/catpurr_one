@@ -14,7 +14,7 @@ module Workers
       aws_uploader = AWSUploader.new
 
       files.each do |file|
-        aws_uploader.upload(file)
+        aws_uploader.upload(file_path: file)
       end
     end
   end
