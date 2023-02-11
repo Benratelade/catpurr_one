@@ -2,7 +2,6 @@
 # Run with "bundle exec rackup simple.ru"
 
 require "sidekiq/web"
-require "rack"
 require "rack/session"
 
 # A Web process always runs as client, no need to configure server
