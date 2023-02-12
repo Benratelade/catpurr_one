@@ -16,6 +16,12 @@ This project is just an opportunity to have some fun with my Raspberry Pi 3B+ an
   * This too may be a candidate for a lambda function. 
   * Where the images will be published is undecided. Some options are: a blog, making the S3 directory publicly readable, Instagram, Twitter, or a mix of several methods. 
 
+## Starting CatpurrOne
+Several things need to run at the same time for CatpurrOne to do its job: 
+* Redis must be started: `redis-server --port 6500 --daemonize yes`
+* Sidekiq must be processing jobs: `bundle exec sidekiq -r lib/catpurr_one.rb`
+* Start CatpurrOne proper: `sudo -E /home/pi/.asdf/shims/ruby catpurr_one_start.rb`
+
 ## Testing
 * Use ASDF to manage dependencies
 * Run tests with rspec
