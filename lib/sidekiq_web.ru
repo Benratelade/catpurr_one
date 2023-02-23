@@ -6,7 +6,7 @@ require "rack/session"
 
 # A Web process always runs as client, no need to configure server
 Sidekiq.configure_client do |config|
-  config.redis = {url: ENV.fetch("CATPURR_ONE_APP_SIDEKIQ_REDIS_URL", nil), size: 1}
+  config.redis = {url: ENV.fetch("CATPURR_ONE_SIDEKIQ_REDIS_URL", nil), size: 1}
 end
 
 # In a multi-process deployment, all Web UI instances should share
