@@ -1,1 +1,4 @@
-source ./env/development.env
+#!/bin/sh
+
+environment_name=$(echo $CATPURR_ONE_APP_ENVIRONMENT_NAME | tr A-Z a-z)
+source "./env/$environment_name.env"
