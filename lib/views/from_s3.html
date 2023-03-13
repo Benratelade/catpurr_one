@@ -1,0 +1,139 @@
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.179.0.min.js"></script>
+
+<script>
+    var albumBucketName = 'howdooai.catpurrone-production';
+
+    // Initialize the Amazon Cognito credentials provider
+    AWS.config.region = 'us-east-1'; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:5b5faa3c-be70-41e6-9c4e-7be2c8b7f1a5',
+    });
+
+    // Create a new service object
+    var s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: { Bucket: albumBucketName }
+    });
+
+    // A utility function to create HTML.
+    function getHtml(template) {
+        return template.join('\n');
+    }
+
+    function filterLatestObjects(contents) {
+        return contents
+        .sort((a, b) => { b.LastModified - a.LastModified})
+        .slice(0,20);
+    }
+
+    // Show the photos that have cats.
+    function viewCats() {
+        var hasCatsFolder = "processed/has_cat/";
+        s3.listObjectsV2({ Prefix: hasCatsFolder}, function (err, data) {
+            if (err) {
+                return alert('There was an error viewing cats: ' + err.message);
+            }
+            // 'this' references the AWS.Request instance that represents the response
+            var href = this.request.httpRequest.endpoint.href;
+            var bucketUrl = href + albumBucketName + '/';
+
+            var photos = filterLatestObjects(data.Contents).map(function (photo) {
+                var photoKey = photo.Key;
+                var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+                return getHtml([
+                    '<span>',
+                    '<div>',
+                    '<br/>',
+                    '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
+                    '</div>',
+                    '<div>',
+                    '<span>',
+                    photoKey.replace(hasCatsFolder, ''),
+                    '</span>',
+                    '</div>',
+                    '</span>',
+                ]);
+            });
+            var message = photos.length ?
+                '<p>The following photos are present.</p>' :
+                '<p>There are no photos in this album.</p>';
+            var htmlTemplate = [
+                '<div>',
+                '</div>',
+                '<h2>',
+                'Album: ' + hasCatsFolder,
+                '</h2>',
+                message,
+                '<div>',
+                getHtml(photos),
+                '</div>',
+                '<h2>',
+                'End of Album: ' + hasCatsFolder,
+                '</h2>',
+                '<div>',
+                '<button onclick="viewNoCats()">',
+                'View No Cats',
+                '</button>',
+                '</div>',
+            ]
+            document.getElementById('viewer').innerHTML = getHtml(htmlTemplate);
+            document.getElementsByTagName('img')[0].setAttribute('style', 'display:none;');
+        });
+    };
+
+    function viewNoCats() {
+        var hasNoCatsFolder = "processed/has_no_cat/";
+        s3.listObjectsV2({ Prefix: hasNoCatsFolder, MaxKeys: 20 }, function (err, data) {
+            if (err) {
+                return alert('There was an error viewing cats: ' + err.message);
+            }
+            // 'this' references the AWS.Request instance that represents the response
+            var href = this.request.httpRequest.endpoint.href;
+            var bucketUrl = href + albumBucketName + '/';
+
+            var photos = filterLatestObjects(data.Contents).map(function (photo) {
+                var photoKey = photo.Key;
+                var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+                return getHtml([
+                    '<span>',
+                    '<div>',
+                    '<br/>',
+                    '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
+                    '</div>',
+                    '<div>',
+                    '<span>',
+                    photoKey.replace(hasNoCatsFolder, ''),
+                    '</span>',
+                    '</div>',
+                    '</span>',
+                ]);
+            });
+            var message = photos.length ?
+                '<p>The following photos are present.</p>' :
+                '<p>There are no photos in this album.</p>';
+            var htmlTemplate = [
+                '<div>',
+                '</div>',
+                '<h2>',
+                'Album: ' + hasNoCatsFolder,
+                '</h2>',
+                message,
+                '<div>',
+                getHtml(photos),
+                '</div>',
+                '<h2>',
+                'End of Album: ' + hasNoCatsFolder,
+                '</h2>',
+                '<div>',
+                '<button onclick="viewCats()">',
+                'View Cats',
+                '</button>',
+                '</div>',
+            ]
+            document.getElementById('viewer').innerHTML = getHtml(htmlTemplate);
+            document.getElementsByTagName('img')[0].setAttribute('style', 'display:none;');
+        });
+    }
+</script>
+<script>viewCats();</script>
+<div id="viewer"></div>
