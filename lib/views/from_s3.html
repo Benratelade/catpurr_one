@@ -21,9 +21,7 @@
     }
 
     function filterLatestObjects(contents) {
-        return contents
-        .sort((a, b) => { b.LastModified - a.LastModified})
-        .slice(0,20);
+        return contents.sort((a, b) => b.LastModified - a.LastModified).slice(0,20);
     }
 
     // Show the photos that have cats.
@@ -83,13 +81,13 @@
 
     function viewNoCats() {
         var hasNoCatsFolder = "processed/has_no_cat/";
-        s3.listObjectsV2({ Prefix: hasNoCatsFolder, MaxKeys: 20 }, function (err, data) {
+        s3.listObjectsV2({ Prefix: hasNoCatsFolder }, function (err, data) {
             if (err) {
                 return alert('There was an error viewing cats: ' + err.message);
             }
             // 'this' references the AWS.Request instance that represents the response
             var href = this.request.httpRequest.endpoint.href;
-            var bucketUrl = href + albumBucketName + '/';
+            var bucketUrl = href + albumBucketName + '/';   
 
             var photos = filterLatestObjects(data.Contents).map(function (photo) {
                 var photoKey = photo.Key;
