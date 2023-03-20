@@ -1,3 +1,5 @@
 .DS_Store
 temp/
 dump.rdb
+lib/lambda_functions/rekon_catpurrone/.bundle/
+lib/lambda_functions/rekon_catpurrone/vendor/
