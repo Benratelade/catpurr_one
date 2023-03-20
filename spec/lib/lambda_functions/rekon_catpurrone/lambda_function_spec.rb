@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "../../../lib/lambda_functions/catpurr_rekognition"
+require_relative "../../../../lib/lambda_functions/rekon_catpurrone/lambda_function"
 require "spec_helper"
 
 # Change to force a new sha
-describe "lib/lambda_functions/catpurr_rekognition.rb" do
+describe "lib/lambda_functions/rekon_catpurrone/lambda_function.rb" do
   before do
     @event = {
       "Records" => [
